@@ -17,7 +17,8 @@ COLORS = {
     'blue'  : np.array([0, 0, 255]),
     'purple': np.array([112, 39, 195]),
     'yellow': np.array([255, 255, 0]),
-    'grey'  : np.array([100, 100, 100])
+    'grey'  : np.array([100, 100, 100]),
+    'black' : np.array([0, 0, 0]),
 }
 
 COLOR_NAMES = sorted(list(COLORS.keys()))
@@ -29,7 +30,8 @@ COLOR_TO_IDX = {
     'blue'  : 2,
     'purple': 3,
     'yellow': 4,
-    'grey'  : 5
+    'grey'  : 5,
+    'black': 6,
 }
 
 IDX_TO_COLOR = dict(zip(COLOR_TO_IDX.values(), COLOR_TO_IDX.keys()))
@@ -159,7 +161,7 @@ class Goal(WorldObj):
         return True
 
     def render(self, img):
-        fill_coords(img, point_in_rect(0, 1, 0, 1), COLORS[self.color])
+        fill_coords(img, point_in_rect(0, 1, 0, 1), COLORS['black'])
 
 class Floor(WorldObj):
     """
@@ -248,29 +250,32 @@ class Door(WorldObj):
 
         return (OBJECT_TO_IDX[self.type], COLOR_TO_IDX[self.color], state)
 
+    # def render(self, img):
+    #     c = COLORS[self.color]
+
+    #     if self.is_open:
+    #         fill_coords(img, point_in_rect(0.88, 1.00, 0.00, 1.00), c)
+    #         fill_coords(img, point_in_rect(0.92, 0.96, 0.04, 0.96), (0,0,0))
+    #         return
+
+    #     # Door frame and door
+    #     if self.is_locked:
+    #         fill_coords(img, point_in_rect(0.00, 1.00, 0.00, 1.00), c)
+    #         fill_coords(img, point_in_rect(0.06, 0.94, 0.06, 0.94), 0.45 * np.array(c))
+
+    #         # Draw key slot
+    #         fill_coords(img, point_in_rect(0.52, 0.75, 0.50, 0.56), c)
+    #     else:
+    #         fill_coords(img, point_in_rect(0.00, 1.00, 0.00, 1.00), c)
+    #         fill_coords(img, point_in_rect(0.04, 0.96, 0.04, 0.96), (0,0,0))
+    #         fill_coords(img, point_in_rect(0.08, 0.92, 0.08, 0.92), c)
+    #         fill_coords(img, point_in_rect(0.12, 0.88, 0.12, 0.88), (0,0,0))
+
+    #         # Draw door handle
+    #         fill_coords(img, point_in_circle(cx=0.75, cy=0.50, r=0.08), c)
+
     def render(self, img):
-        c = COLORS[self.color]
-
-        if self.is_open:
-            fill_coords(img, point_in_rect(0.88, 1.00, 0.00, 1.00), c)
-            fill_coords(img, point_in_rect(0.92, 0.96, 0.04, 0.96), (0,0,0))
-            return
-
-        # Door frame and door
-        if self.is_locked:
-            fill_coords(img, point_in_rect(0.00, 1.00, 0.00, 1.00), c)
-            fill_coords(img, point_in_rect(0.06, 0.94, 0.06, 0.94), 0.45 * np.array(c))
-
-            # Draw key slot
-            fill_coords(img, point_in_rect(0.52, 0.75, 0.50, 0.56), c)
-        else:
-            fill_coords(img, point_in_rect(0.00, 1.00, 0.00, 1.00), c)
-            fill_coords(img, point_in_rect(0.04, 0.96, 0.04, 0.96), (0,0,0))
-            fill_coords(img, point_in_rect(0.08, 0.92, 0.08, 0.92), c)
-            fill_coords(img, point_in_rect(0.12, 0.88, 0.12, 0.88), (0,0,0))
-
-            # Draw door handle
-            fill_coords(img, point_in_circle(cx=0.75, cy=0.50, r=0.08), c)
+        fill_coords(img, point_in_rect(0, 1, 0, 1), COLORS['blue'])
 
 class Key(WorldObj):
     def __init__(self, color='blue'):
